@@ -39,6 +39,13 @@
         return $app['twig']->render("stores.html.twig", array('stores' => $stores, 'brands' => $brands));
     });
 
+    //Delete all stores
+    $app->post('/delete_stores', function() use ($app) {
+        $GLOBALS['DB']->exec("DELETE FROM stores;");
+        Store::deleteAll();
+        return $app['twig']->render('stores.html.twig', array('stores' => Store::getAll()));
+    });
+
     //Adds a store to the page after the user clicks the "add" button
     $app->post('/store_added', function() use ($app) {
         $store = new Store($_POST['store_name']);
@@ -89,6 +96,16 @@
         return $app['twig']->render('brand.html.twig', array('brand' => $brand, 'stores' => $stores));
     });
 
+    //Add a store to the brand page
+    $app->post("/brand/{id}/add_store", function($id) use ($app) {
+        $find_brand = Brand::find($id);
+        $store_name = $_POST['store_name'];
+        $new_store = new Store($store_name);
+        $new_store->save();
+        $find_brand->addStore($new_store);
+        $stores = $find_brand->getStores();
+        return $app['twig']->render('brand.html.twig', array('brand' => $find_brand, 'stores' => $stores));
+    });
 
     return $app;
 

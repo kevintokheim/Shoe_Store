@@ -20,6 +20,20 @@
                     </ul>
                 {% endif %}
 
+                <h4>Add another store to this brand</h4>
+                <br>
+                <form action = '/brand/{{ brand.getId }}/add_store' method = 'post'>
+                    <input id = 'store_name' name = 'store_name' type = 'hidden' value = '{{ brand.getId }}'>
+                    <label for = 'store_name'>Enter a new store:</label>
+                    <input id = 'store_name' name = 'store_name' type = 'text'>
+                    <br>
+                    <button type ='submit' class = 'btn btn-primary btn-md'>Add store</button>
+                </form>
+
+                <form action = '/'>
+                    <button type = 'submit' class = 'btn-lg'>HOME</button>
+                </form>
+
             </div>
 
         </div>
