@@ -1,0 +1,27 @@
+<html>
+    <head>
+        <title>Brand</title>
+        <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css'>
+
+    </head>
+    <body>
+        <div class = "container">
+
+            <h1>{{ brand.getBrandName }}</h1>
+            <div class = "col-lg-8">
+
+                {% if stores is not empty %}
+                    <ul>
+                        {% for store in stores %}
+                        <li>
+                            <a href = '/individual_store/{{ store.getId }}'>{{ store.getStoreName }}</a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+
+            </div>
+
+        </div>
+    </body>
+</html>
