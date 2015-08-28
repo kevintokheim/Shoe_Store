@@ -29,6 +29,7 @@
             return $this->id;
         }
 
+        //Save the information into database
         function save()
         {
             $GLOBALS['DB']->exec("INSERT INTO stores (store_name) VALUES (
@@ -38,6 +39,7 @@
             $this->id = $GLOBALS['DB']->lastInsertId();
         }
 
+        //Retrieve the information stored in the database
         static function getAll()
         {
             $returned_stores = $GLOBALS['DB']->query("SELECT * FROM stores;");
@@ -51,11 +53,13 @@
             return $stores;
         }
 
+        //Delete the information stored in the database
         static function deleteAll()
         {
             $GLOBALS['DB']->exec("DELETE FROM stores;");
         }
 
+        //Find an input in the database by its id
         static function find($search_id)
         {
             $found_store = null;
@@ -68,6 +72,41 @@
             }
             return $found_store;
         }
+
+        //Add a brand of shoe to the shoe store
+        function addBrand($brand)
+        {
+            $GLOBALS['DB']->exec("INSERT INTO stores_brands (store_id, brand_id) VALUES (
+                {$this->getId()},
+                {$brand->getId()}
+            );");
+        }
+
+        //Retrieve brands from the database with a join statement so the user can see
+        //which brands are available in an individual store
+        function getBrands()
+        {
+            $returned_brands = $GLOBALS['DB']->query("SELECT brands.* FROM stores
+                JOIN stores_brands ON (stores.id = stores_brands.store_id)
+                JOIN brands ON (stores_brands.brand_id = brands.id)
+                WHERE stores.id = {$this->getId()};");
+
+            $brands = array();
+            foreach($returned_brands as $brand) {
+                $brand_name = $brand['brand_name'];
+                $id = $brand['id'];
+                $new_brand = new Brand($brand_name, $id);
+                array_push($brands, $new_brand);
+            }
+            return $brands;
+        }
+
+        function delete()
+        {
+            $GLOBALS['DB']->exec("DELETE FROM stores WHERE id = {$this->getId()};");
+            $GLOBALS['DB']->exec("DELETE FROM stores_brands WHERE store_id = {$this->getId()};");
+        }
+
     }
 
 
