@@ -46,7 +46,40 @@
         return $app['twig']->render('stores.html.twig', array('stores' => Store::getAll()));
     });
 
+    //Renders the indiviual store page when a user clicks on a store
+    $app->get('/individual_store/{id}', function($id) use ($app) {
+        $store = Store::find($id);
+        $store_brands = $store->getBrands();
+        return $app['twig']->render('store.html.twig', array('store' => $store, 'brands' => $store_brands));
+    });
+
 
     return $app;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ?>
