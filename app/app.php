@@ -53,6 +53,17 @@
         return $app['twig']->render('store.html.twig', array('store' => $store, 'brands' => $store_brands));
     });
 
+    //Add a brand to a store's individual page
+    $app->post('/individual_store/{id}/add_brand', function($id) use($app) {
+        $find_store = Store::find($id);
+        $brand_name = $_POST['brand_name'];
+        $new_brand = new Brand($brand_name);
+        $new_brand->save();
+        $find_store->addBrand($new_brand);
+        $brands = $find_store->getBrands();
+        return $app['twig']->render('store.html.twig', array('store' => $find_store, 'brands' => $brands));
+    });
+
 
     return $app;
 
