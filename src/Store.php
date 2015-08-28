@@ -57,6 +57,7 @@
         static function deleteAll()
         {
             $GLOBALS['DB']->exec("DELETE FROM stores;");
+            $GLOBALS['DB']->exec("DELETE FROM stores_brands;");
         }
 
         //Find an input in the database by its id
@@ -101,36 +102,21 @@
             return $brands;
         }
 
+        //Deletes an individual item in the stores and stores_brands database
         function delete()
         {
             $GLOBALS['DB']->exec("DELETE FROM stores WHERE id = {$this->getId()};");
             $GLOBALS['DB']->exec("DELETE FROM stores_brands WHERE store_id = {$this->getId()};");
         }
 
+        //Updates the store name
+        function update($new_store_name)
+        {
+            $GLOBALS['DB']->exec("UPDATE stores SET store_name = '{$new_store_name}' WHERE id = {$this->getId()};");
+            $this->setStoreName($new_store_name);
+        }
+
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 ?>

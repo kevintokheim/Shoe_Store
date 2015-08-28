@@ -124,98 +124,57 @@
             $this->assertEquals($test_store, $result);
         }
 
-        // function test_addBrand()
-        // {
-        //     $store_name = "Flying Shoes";
-        //     $id = 1;
-        //     $test_store = new Store($store_name, $id);
-        //     $test_store->save();
-        //
-        //     $brand_name = "Nike's Flying Shoes";
-        //     $id2 = 2;
-        //     $test_brand = new Brand($brand_name, $id2);
-        //     $test_brand->save();
-        //
-        //     //Act
-        //     $test_store->addBrand($test_brand);
-        //     //$test_store->getBrands();
-        //
-        //     //Assert
-        //     $this->assertEquals($test_store->getBrands(), [$test_store]);
-        // }
+        function test_addBrand()
+        {
+            //Arrange
+            $store_name = "Super Shoe Shopping Store";
+            $test_store = new Store($store_name);
+            $test_store->save();
 
-        // function test_getBrands()
-        // {
-        //     //Arrange
-        //     $store_name = "Flying Shoes";
-        //     $test_store = new Store($store_name);
-        //     $test_store->save();
-        //
-        //     $brand_name = "Nike's Flying Shoes";
-        //     $test_brand = new Brand($brand_name);
-        //     $test_brand->save();
-        //
-        //     $brand_name2 = "Jake's Rocket Shoes";
-        //     $test_brand2 = new Brand($brand_name2);
-        //     $test_brand2->save();
-        //
-        //     //Act
-        //     $test_store->addBrand($test_brand);
-        //     $test_store->addBrand($test_brand2);
-        //     var_dump($test_store);
-        //
-        //     //Assert
-        //     $this->assertEquals($test_store->getBrands(), [$test_brand, $test_brand2]);
-        // }
+            $brand_name = "Cool Shoes";
+            $test_brand = new Brand($brand_name);
+            $test_brand->save();
 
-        // function test_delete()
-        // {
-        //     //Arrange
-        //     $store_name = "The Awesome Shoe Store";
-        //     $test_store = new Store($store_name);
-        //     $test_store->save();
-        //
-        //     $brand_name = "Nike";
-        //     $test_brand = new Brand($brand_name);
-        //
-        //     //Act
-        //     $test_store->addBrand($test_brand);
-        //     $test_store->delete();
-        //
-        //     //Assert
-        //     $this->assertEquals([], $test_brand->getStr)
-        // }
+            //Act
+            $test_store->addBrand($test_brand);
+
+            //Assert
+            $this->assertEquals($test_store->getBrands(), [$test_brand]);
+        }
+
+        function test_delete()
+        {
+            //Arrange
+            $store_name = "The Awesome Shoe Store";
+            $test_store = new Store($store_name);
+            $test_store->save();
+
+            $brand_name = "Nike";
+            $test_brand = new Brand($brand_name);
+            $test_brand->save();
+
+            //Act
+            $test_store->addBrand($test_brand);
+            $test_store->delete();
+
+            //Assert
+            $this->assertEquals([], $test_brand->getStores());
+        }
+
+        function test_update()
+        {
+            //Arrange
+            $store_name = "The Foot Store";
+            $test_store = new Store($store_name);
+            $test_store->save();
+
+            //Act
+            $new_store_name = "The Store of Feet";
+            $test_store->update($new_store_name);
+
+            //Assert
+            $this->assertEquals("The Store of Feet", $test_store->getStoreName());
+        }
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 ?>
