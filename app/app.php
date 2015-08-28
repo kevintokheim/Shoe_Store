@@ -64,6 +64,31 @@
         return $app['twig']->render('store.html.twig', array('store' => $find_store, 'brands' => $brands));
     });
 
+    //Update store info
+    //Is only changing URL, not the store name itself
+    $app->patch("/individual_store/{id}", function($id) use ($app) {
+        $store = Store::find($id);
+        $store->update($_POST['store_name']);
+        $brands = $store->getBrands();
+        return $app['twig']->render('store.html.twig', array('store' => $store, 'brands' => $brands));
+    });
+
+
+    //Delete store info
+    //Method not Allowed
+    $app->delete("/individual_store{id}", function($id) use ($app) {
+        $store = Store::find($id);
+        $store->delete();
+        return $app['twig']->render('stores.html.twig', array('stores' => Store::getAll()));
+    });
+
+    //Individual Brand Page
+    $app->get("/brand/{id}", function($id) use ($app) {
+        $brand = Brand::find($id);
+        $stores = $brand->getStores();
+        return $app['twig']->render('brand.html.twig', array('brand' => $brand, 'stores' => $stores));
+    });
+
 
     return $app;
 
