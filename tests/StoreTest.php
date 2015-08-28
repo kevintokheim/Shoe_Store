@@ -7,7 +7,7 @@
 
     require_once "src/Store.php";
 
-    $server = 'mysql:host=localhost:3306;dbname=shoes_test';
+    $server = 'mysql:host=localhost;dbname=shoes_test';
     $username = 'root';
     $password = 'root';
     $DB = new PDO($server, $username, $password);
@@ -17,7 +17,6 @@
         protected function tearDown()
         {
             Store::deleteAll();
-
         }
 
         function test_setStoreName()
