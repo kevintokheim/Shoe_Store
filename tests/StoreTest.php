@@ -78,35 +78,50 @@
             $this->assertEquals([$test_store, $test_store2], $result);
         }
 
-        // function test_save()
-        // {
-        //     //Arrange
-        //     $store_name = "Flying Shoes";
-        //     $id = 1;
-        //     $test_store = new Store($store_name, $id);
-        //     $test_store->save();
-        //
-        //     //Act
-        //     $result = Store::getAll();
-        //
-        //     //Assert
-        //     $this->assertEquals($test_store, $result[0]);
-        // }
-        //
-        // function test_deleteAll()
-        // {
-        //     //Arrange
-        //     $store_name = "Flying Shoes";
-        //     $test_store = new Store($store_name);
-        //     $test_store->save();
-        //
-        //     //Act
-        //     Store::deleteAll();
-        //     $result = Store::getAll();
-        //
-        //     //Assert
-        //     $this->assertEquals([], $result);
-        // }
+        function test_save()
+        {
+            //Arrange
+            $store_name = "Flying Shoes";
+            $id = 1;
+            $test_store = new Store($store_name, $id);
+            $test_store->save();
+
+            //Act
+            $result = Store::getAll();
+
+            //Assert
+            $this->assertEquals($test_store, $result[0]);
+        }
+
+        function test_deleteAll()
+        {
+            //Arrange
+            $store_name = "Flying Shoes";
+            $test_store = new Store($store_name);
+            $test_store->save();
+
+            //Act
+            Store::deleteAll();
+            $result = Store::getAll();
+
+            //Assert
+            $this->assertEquals([], $result);
+        }
+
+        function test_find()
+        {
+            //Arrange
+            $store_name = "Flying Shoes";
+            $id = 1;
+            $test_store = new Store($store_name, $id);
+            $test_store->save();
+
+            //Act
+            $result = Store::find($test_store->getId());
+
+            //Assert
+            $this->assertEquals($test_store, $result);
+        }
     }
 
 
