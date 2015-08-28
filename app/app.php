@@ -31,7 +31,13 @@
         return $app['twig']->render('index.html.twig');
     });
 
-
+    //STORE PAGE - shows a list of stores and their brands,
+    //and displays a button to allow the user to add a store.
+    $app->get('/stores', function() use ($app) {
+        $stores = Store::getAll();
+        $brands = Brand::getAll();
+        return $app['twig']->render("stores.html.twig", array('stores' => $stores, 'brands' => $brands));
+    });
 
 
 
